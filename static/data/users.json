@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Admin",
+    "email": "mohamedkamalbachir@gmail.com",
+    "passwordHash": "$2b$10$hjMG2OSHMpuNeTKhSRX7r.DDvMmLVtIBe/Vr81AI/4OdE4IJHuk9y",
+    "id": 1745692017027,
+    "budget": 999999314,
+    "inventory": {
+      "food": 0,
+      "toy": 0,
+      "treat": 22
+    },
+    "isAdmin": true,
+    "pets": [
+      1,
+      1745752169405,
+      1745752169405
+    ]
+  },
+  {
+    "name": "1",
+    "email": "mohamedkamalbachir@gmail.com",
+    "passwordHash": "$2b$10$uvBo5LMN8TsE4FHfFcD3juZbpP0F3kNA87OXeeFK45sLfma4GndP6",
+    "id": 1745735065185,
+    "budget": 64,
+    "inventory": {
+      "food": 9,
+      "toy": 0,
+      "treat": 0
+    },
+    "isAdmin": false
+  }
+]

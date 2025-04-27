@@ -1,0 +1,109 @@
+[
+  {
+    "id": 1,
+    "type": "puppy",
+    "name": "Milo",
+    "image": "/images/puppy1.jpg",
+    "adoptedBy": null,
+    "hunger": 0,
+    "happiness": 100,
+    "owner": null
+  },
+  {
+    "id": 2,
+    "type": "kitten",
+    "name": "Daisy",
+    "image": "/images/kitten1.jpg",
+    "adoptedBy": null,
+    "hunger": 20,
+    "happiness": 96,
+    "owner": 1745602462299
+  },
+  {
+    "id": 3,
+    "type": "puppy",
+    "name": "Coco",
+    "image": "/images/puppy2.jpg",
+    "adoptedBy": null,
+    "hunger": 33,
+    "happiness": 52,
+    "owner": null
+  },
+  {
+    "id": 4,
+    "type": "kitten",
+    "name": "Coco",
+    "image": "/images/kitten2.jpg",
+    "adoptedBy": null,
+    "hunger": 9,
+    "happiness": 73,
+    "owner": null
+  },
+  {
+    "id": 5,
+    "type": "puppy",
+    "name": "Max",
+    "image": "/images/puppy3.jpg",
+    "adoptedBy": null,
+    "hunger": 36,
+    "happiness": 58,
+    "owner": null
+  },
+  {
+    "id": 6,
+    "type": "kitten",
+    "name": "Zoe",
+    "image": "/images/kitten3.jpg",
+    "adoptedBy": null,
+    "hunger": 8,
+    "happiness": 100,
+    "owner": 1745686283203
+  },
+  {
+    "id": 7,
+    "type": "puppy",
+    "name": "Daisy",
+    "image": "/images/puppy4.jpg",
+    "adoptedBy": null,
+    "hunger": 6,
+    "happiness": 71,
+    "owner": null
+  },
+  {
+    "id": 8,
+    "type": "kitten",
+    "name": "Zoe",
+    "image": "/images/kitten4.jpg",
+    "adoptedBy": null,
+    "hunger": 32,
+    "happiness": 74,
+    "owner": null
+  },
+  {
+    "id": 1745752155639,
+    "name": "Rocky",
+    "type": "puppy",
+    "hunger": 50,
+    "happiness": 50,
+    "adoptionStatus": false,
+    "owner": null
+  },
+  {
+    "id": 1745752159338,
+    "name": "Max",
+    "type": "kitten",
+    "hunger": 50,
+    "happiness": 50,
+    "adoptionStatus": false,
+    "owner": null
+  },
+  {
+    "id": 1745752169405,
+    "name": "MishMish",
+    "type": "kitten",
+    "hunger": 0,
+    "happiness": 100,
+    "adoptionStatus": false,
+    "owner": 1745692017027
+  }
+]
