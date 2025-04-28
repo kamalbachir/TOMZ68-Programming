@@ -25,7 +25,7 @@
         const res = await fetch('/api/pets');
         if (res.ok) {
             pets = await res.json();
-            console.log('Loaded pets:', pets); /
+            console.log('Loaded pets:', pets); 
         } else {
             error = 'Failed to load pets';
             console.error('Failed to load pets');
