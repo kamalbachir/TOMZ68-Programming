@@ -33,29 +33,70 @@
 	}
 </script>
 
-<h1>Pet Shop</h1>
+<!-- HTML Layout -->
+<div class="container">
+	<h1>Pet Shop</h1>
 
-{#if user}
-	<p>Your Budget: ${user.budget}</p>
-	<p>Inventory:</p>
-	<ul>
-		<li>Food: {user.inventory.food}</li>
-		<li>Toy: {user.inventory.toy}</li>
-		<li>Treat: {user.inventory.treat}</li>
-	</ul>
-	<button on:click={() => buy('food')}>Buy Food (${prices.food})</button>
-	<button on:click={() => buy('toy')}>Buy Toy (${prices.toy})</button>
-	<button on:click={() => buy('treat')}>Buy Treat (${prices.treat})</button>
-{:else}
-	<p>Please log in to purchase items.</p>
-{/if}
+	{#if user}
+		<p><strong>Your Budget:</strong> ${user.budget}</p>
+		<p><strong>Inventory:</strong></p>
+		<ul>
+			<li>Food: {user.inventory.food}</li>
+			<li>Toy: {user.inventory.toy}</li>
+			<li>Treat: {user.inventory.treat}</li>
+		</ul>
 
-<p>{message}</p>
+		<div class="button-group">
+			<button on:click={() => buy('food')}>Buy Food (${prices.food})</button>
+			<button on:click={() => buy('toy')}>Buy Toy (${prices.toy})</button>
+			<button on:click={() => buy('treat')}>Buy Treat (${prices.treat})</button>
+		</div>
+	{:else}
+		<p>Please log in to purchase items.</p>
+	{/if}
+
+	<p class="message">{message}</p>
+</div>
 
 <style>
+	.container {
+		max-width: 600px;
+		margin: 0 auto;
+		padding: 2rem;
+		text-align: center;
+		background-color: #f9f9f9;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+
 	button {
-		padding: 0.5rem;
+		padding: 0.5rem 1rem;
 		font-size: 1rem;
-		margin-right: 0.5rem;
+		margin: 0.5rem;
+		border: none;
+		border-radius: 5px;
+		background-color: #4caf50;
+		color: white;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+
+	button:hover {
+		background-color: #45a049;
+	}
+
+	.button-group {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		margin-top: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.message {
+		margin-top: 1rem;
+		color: #333;
+		font-weight: bold;
 	}
 </style>
+
