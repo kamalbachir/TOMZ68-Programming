@@ -1,102 +1,60 @@
 <script lang="ts">
-	import { currentUser } from '$lib/stores';
-
-	$: user = $currentUser;
-	const prices = { food: 4, toy: 20, treat: 7 };
-	let message = '';
-
-	async function buy(item: 'food' | 'toy' | 'treat') {
-		if (!user) {
-			message = 'Please log in to buy items.';
-			return;
-		}
-
-		const res = await fetch('/api/shop', {
-			method: 'POST',
-			body: JSON.stringify({
-				userId: user.id,
-				item,
-				cost: prices[item]
-			}),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-
-		if (res.ok) {
-			message = `Successfully purchased ${item}`;
-			user.budget -= prices[item];
-			user.inventory[item] = (user.inventory[item] || 0) + 1;
-		} else {
-			message = await res.text();
-		}
-	}
+    import { goto } from '$app/navigation';
 </script>
 
-<!-- HTML Layout -->
-<div class="container">
-	<h1>Pet Shop</h1>
+<div class="home-container">
+    <h1>🐾 Welcome to TOMZ68 Pet Portal! </h1>
+    <p>Your cozy place for adopting, caring, and shopping for your virtual pets! </p>
+    <p>Made By M.Kamal Bachir </p>
 
-	{#if user}
-		<p><strong>Your Budget:</strong> ${user.budget}</p>
-		<p><strong>Inventory:</strong></p>
-		<ul>
-			<li>Food: {user.inventory.food}</li>
-			<li>Toy: {user.inventory.toy}</li>
-			<li>Treat: {user.inventory.treat}</li>
-		</ul>
-
-		<div class="button-group">
-			<button on:click={() => buy('food')}>Buy Food (${prices.food})</button>
-			<button on:click={() => buy('toy')}>Buy Toy (${prices.toy})</button>
-			<button on:click={() => buy('treat')}>Buy Treat (${prices.treat})</button>
-		</div>
-	{:else}
-		<p>Please log in to purchase items.</p>
-	{/if}
-
-	<p class="message">{message}</p>
+    <div class="nav-buttons">
+        <button on:click={() => goto('/shop')}>🛍️ Go to Shop</button>
+        <button on:click={() => goto('/logs')}>📜 View Logs</button>
+    </div>
 </div>
 
 <style>
-	.container {
-		max-width: 600px;
-		margin: 0 auto;
-		padding: 2rem;
-		text-align: center;
-		background-color: #f9f9f9;
-		border-radius: 8px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	}
+    .home-container {
+        max-width: 700px;
+        margin: 4rem auto;
+        padding: 2rem;
+        text-align: center;
+        background-color: #fffef6;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
 
-	button {
-		padding: 0.5rem 1rem;
-		font-size: 1rem;
-		margin: 0.5rem;
-		border: none;
-		border-radius: 5px;
-		background-color: #4caf50;
-		color: white;
-		cursor: pointer;
-		transition: background-color 0.3s ease;
-	}
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #4caf50;
+    }
 
-	button:hover {
-		background-color: #45a049;
-	}
+    p {
+        font-size: 1.2rem;
+        color: #444;
+        margin-bottom: 2rem;
+    }
 
-	.button-group {
-		display: flex;
-		justify-content: center;
-		gap: 1rem;
-		margin-top: 1rem;
-		flex-wrap: wrap;
-	}
+    .nav-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
 
-	.message {
-		margin-top: 1rem;
-		color: #333;
-		font-weight: bold;
-	}
+    button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.4rem;
+        font-size: 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #388e3c;
+    }
 </style>
-
