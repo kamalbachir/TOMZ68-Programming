@@ -35,8 +35,9 @@
         background: #f2f2f2;
         padding: 1rem;
         display: flex;
+        justify-content: center; /* Center items horizontally */
+        align-items: center; /* Center items vertically */
         gap: 1rem;
-        align-items: center;
         border-bottom: 1px solid #ccc;
     }
 
