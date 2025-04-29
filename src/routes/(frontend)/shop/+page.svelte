@@ -1,30 +1,29 @@
 <script lang="ts">
     import { currentUser } from '$lib/stores';
 
-    $: user = $currentUser;
-    const prices = { food: 10, toy: 15, treat: 5 };
+    let user = $currentUser;
     let message = '';
+
+    const prices = {
+        food: 10,
+        toy: 15,
+        treat: 5
+    };
 
     async function buy(item: 'food' | 'toy' | 'treat') {
         if (!user) {
-            message = 'Please log in to buy items.';
+            message = 'Please login to buy items.';
             return;
         }
 
         const res = await fetch('/api/shop', {
             method: 'POST',
-            body: JSON.stringify({
-                userId: user.id,
-                item,
-                cost: prices[item]
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: user.id, item, cost: prices[item] })
         });
 
         if (res.ok) {
-            message = `Successfully purchased ${item}`;
+            message = `${item} purchased!`;  // Fixed string interpolation
             user.budget -= prices[item];
             user.inventory[item] = (user.inventory[item] || 0) + 1;
         } else {
@@ -34,97 +33,91 @@
 </script>
 
 <div class="container">
-    <h1>Pet Shop</h1>
+    <div class="box">
+        <h1>🐾 Pet Shop</h1>
 
-    {#if user}
-        <p class="budget">💰 Budget: <strong>${user.budget}</strong></p>
+        {#if user}
+            <p>Budget: ${user.budget}</p>
+            <p>Inventory: 🥩 {user.inventory.food} 🎾 {user.inventory.toy} 🍬 {user.inventory.treat}</p>
+            <button on:click={() => buy('food')}>Buy Food - ${prices.food}</button>
+            <button on:click={() => buy('toy')}>Buy Toy - ${prices.toy}</button>
+            <button on:click={() => buy('treat')}>Buy Treat - ${prices.treat}</button>
+        {:else}
+            <p>Please login to see your budget and inventory.</p>
+        {/if}
 
-        <div class="inventory">
-            <p>📦 Inventory:</p>
-            <div class="items">
-                <div><span class="emoji">🥩</span> {user.inventory.food}</div>
-                <div><span class="emoji">🎾</span> {user.inventory.toy}</div>
-                <div><span class="emoji">🍬</span> {user.inventory.treat}</div>
-            </div>
-        </div>
-
-        <div class="button-group">
-            <button on:click={() => buy('food')}>Buy Food - $10</button>
-            <button on:click={() => buy('toy')}>Buy Toy - $15</button>
-            <button on:click={() => buy('treat')}>Buy Treat - $5</button>
-        </div>
-    {:else}
-        <p>Please log in to purchase items.</p>
-    {/if}
-
-    <p class="message">{message}</p>
+        <p>{message}</p>
+    </div>
 </div>
 
 <style>
+    /* Center the body content */
+    body {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        height: 100vh; /* Full viewport height */
+        margin: 0; /* Removes default margin */
+        background-color: #e6f7e6; /* Light green background */
+    }
+
+    /* Centered content container */
     .container {
-        max-width: 600px;
-        margin: 2rem auto;
+        display: flex;
+        justify-content: center; /* Center content horizontally */
+        align-items: center; /* Center content vertically */
+        width: 100%;
+    }
+
+    /* Box styling */
+    .box {
         padding: 2rem;
+        border: 2px solid #28a745; /* Green border */
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
         text-align: center;
-        background-color: #f0fff4;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 128, 0, 0.15);
     }
 
+    /* Title styling with emoji */
     h1 {
-        font-size: 2rem;
-        color: #2e7d32;
-    }
-
-    .budget {
-        font-size: 1.2rem;
+        font-size: 2.5rem;
+        color: #28a745; /* Green color */
         margin-bottom: 1rem;
     }
 
-    .inventory {
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-    }
-
-    .items {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        font-size: 1.4rem;
-        margin-top: 0.5rem;
-        flex-wrap: wrap;
-    }
-
-    .emoji {
-        margin-right: 0.3rem;
-    }
-
-    .button-group {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 1rem;
-        flex-wrap: wrap;
-    }
-
+    /* Button styling */
     button {
-        padding: 0.7rem 1.2rem;
+        padding: 0.5rem;
         font-size: 1rem;
-        border: none;
-        border-radius: 6px;
-        background-color: #4caf50;
+        background-color: #28a745; /* Green button */
         color: white;
+        border: none;
+        border-radius: 4px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        margin-top: 1rem;
+        width: 100%;
     }
 
     button:hover {
-        background-color: #388e3c;
+        background-color: #218838; /* Darker green on hover */
     }
 
-    .message {
-        margin-top: 1rem;
-        color: #2e7d32;
-        font-weight: bold;
+    /* Error message styling */
+    p {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    /* Link styling */
+    a {
+        color: #28a745; /* Green link color */
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
     }
 </style>
