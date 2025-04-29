@@ -1,55 +1,49 @@
 <script lang="ts">
-    import { currentUser } from '$lib/stores';
+    import { onMount } from 'svelte';
+    let logs: string[] = [];
+    let error = '';
 
-    $: user = $currentUser;
-    let logs = [
-        { time: '2025-04-29 10:00', action: 'bought food', username: 'Mohammed' },
-        { time: '2025-04-28 15:20', action: 'adopted a pet', username: 'Sarah' },
-    ];
+    onMount(async () => {
+        const res = await fetch('/api/log');
+        if (res.ok) {
+            logs = await res.json();
+        } else {
+            error = 'Failed to load logs';
+        }
+    });
 </script>
-
-<div class="container">
-    <h1>Activity Logs</h1>
-
-    {#if user}
-        {#if logs.length > 0}
-            <ul>
-                {#each logs as log}
-                    <li><strong>[{log.time}]</strong> {log.username} {log.action}</li>
-                {/each}
-            </ul>
-        {:else}
-            <p>No logs available.</p>
-        {/if}
-    {:else}
-        <p>Please log in to view your logs.</p>
-    {/if}
+<div class="log-container">
+	<h2>Activity Logs</h2>
+	{#if logs.length > 0}
+		<ul>
+			{#each logs as log}
+				<li>{log}</li>
+			{/each}
+		</ul>
+	{:else}
+		<p>No activity logs available yet.</p>
+	{/if}
 </div>
 
 <style>
-    .container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 2rem;
-        text-align: center;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+	.log-container {
+		padding: 1rem;
+		background-color: #f0fdf4;
+		border: 1px solid #a3e635;
+		border-radius: 8px;
+		max-height: 400px;
+		overflow-y: auto;
+	}
 
-    ul {
-        list-style: none;
-        padding: 0;
-    }
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
 
-    li {
-        margin: 0.5rem 0;
-        font-size: 1rem;
-    }
-
-    p {
-        margin-top: 1rem;
-        color: #333;
-        font-weight: bold;
-    }
+	li {
+		color: green;
+		font-weight: 500;
+		margin-bottom: 0.25rem;
+	}
 </style>
